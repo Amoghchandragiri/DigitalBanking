@@ -1,6 +1,8 @@
 package com.example.digitalbanking.controller;
 
-import com.example.digitalbanking.entity.Account;
+import com.example.digitalbanking.dto.AccountRequest;
+import com.example.digitalbanking.dto.AccountResponse;
+import com.example.digitalbanking.dto.TransferRequest;
 import com.example.digitalbanking.service.AccountService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,21 +19,20 @@ public class AccountController {
     }
 
     @PostMapping
-    public Account createAccount(@RequestBody Account account) {
-        return service.createAccount(account);
+    public AccountResponse createAccount(@RequestBody AccountRequest request) {
+
+        return service.createAccount(request);
     }
 
     @GetMapping
-    public List<Account> getAllAccounts() {
+    public List<AccountResponse> getAllAccounts() {
+
         return service.getAllAccounts();
     }
 
     @PostMapping("/transfer")
-    public String transfer(
-            @RequestParam Long fromId,
-            @RequestParam Long toId,
-            @RequestParam Double amount) {
+    public String transferMoney(@RequestBody TransferRequest request) {
 
-        return service.transferMoney(fromId, toId, amount);
+        return service.transferMoney(request);
     }
 }
